@@ -58,12 +58,40 @@ generatePasswordBtn?.addEventListener('click', () => {
     passwordInputElement.value = password
 
     // guardar preferencias
+    const preferences = {
+        length: 8, 
+        symbols: length, 
+        numbers: checkSymbolsSelect.checked,
+        lowerLetters: checkLowerCaseSelect.checked,
+        upperLetters: checkUpperCaseSelect.checked
+    }
+
+    if (checkPreferencesSelect.checked){
+        localStorage.setItem("preferences", JSON.stringify(preferences))
+    } else {
+        localStorage.setItem("preferences", "")
+    }
 
 })
 
 
 const init = () => {
     // cargar preferencias
+    const preferences = localStorage.getItem("preferences")
+    console.log(preferences);
+
+    if (preferences) {
+        const parsedPreferences = JSON.parse()
+        console.log(parsedPreferences);
+
+        passwordLengthSelect.value = parsedPreferences.length
+        checkSymbolsSelect.checked = parsedPreferences.symbols
+        checkNumbersSelect.checked = parsedPreferences.numbers
+        checkLowerCaseSelect.checked = parsedPreferences.lowerLetters
+        checkUpperCaseSelect.checked = parsedPreferences.upperLetters
+
+        checkPreferencesSelect.checked = true
+    }
 }
 
 init()
